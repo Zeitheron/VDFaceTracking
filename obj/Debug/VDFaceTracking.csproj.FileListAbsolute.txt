@@ -1,0 +1,2 @@
+P:\$Code\C#\Resonite\VDFaceTracking\obj\Debug\VDFaceTracking.csproj.AssemblyReference.cache
+P:\$Code\C#\Resonite\VDFaceTracking\obj\Debug\VDFaceTracking.csproj.CoreCompileInputs.cache
