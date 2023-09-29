@@ -504,8 +504,8 @@ namespace VDFaceTracking
             _eyes.CombinedEye.UpdateWithRotation(MathX.Slerp(_eyes.LeftEye.RawRotation, _eyes.RightEye.RawRotation, 0.5f));
             _eyes.CombinedEye.PupilDiameter = 0.004f;
 
-            _eyes.LeftEye.Openness = MathX.Pow(1 - _eyes.LeftEye.Openness, VDFaceTracking.EyeOpenExponent);
-            _eyes.RightEye.Openness = MathX.Pow(1 - _eyes.RightEye.Openness, VDFaceTracking.EyeOpenExponent);
+            _eyes.LeftEye.Openness = MathX.Pow(1.0f - Math.Max(0, Math.Min(1, expressions[(int)Expressions.EyesClosedL] + expressions[(int)Expressions.EyesClosedL] * expressions[(int)Expressions.LidTightenerL])), VDFaceTracking.EyeOpenExponent);
+            _eyes.RightEye.Openness = MathX.Pow(1.0f - (float)Math.Max(0, Math.Min(1, expressions[(int)Expressions.EyesClosedR] + expressions[(int)Expressions.EyesClosedR] * expressions[(int)Expressions.LidTightenerR])), VDFaceTracking.EyeOpenExponent);
 
             _eyes.ComputeCombinedEyeParameters();
             _eyes.ConvergenceDistance = 0f;

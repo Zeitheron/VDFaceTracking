@@ -37,7 +37,7 @@ namespace VDFaceTracking
 
         public override string Author => "Zeith & dfgHiatus & Geenz & Earthmark";
 
-        public override string Version => "1.0.0";
+        public override string Version => "1.0.1";
 
         public static VDProxy proxy;
 

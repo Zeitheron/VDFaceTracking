@@ -110,3 +110,4 @@ P:\$Code\C#\Resonite\VDFaceTracking\bin\Release\Microsoft.Extensions.Primitives.
 P:\$Code\C#\Resonite\VDFaceTracking\obj\Release\VDFaceTracking.csproj.CopyComplete
 P:\$Code\C#\Resonite\VDFaceTracking\obj\Release\VDFaceTracking.dll
 P:\$Code\C#\Resonite\VDFaceTracking\obj\Release\VDFaceTracking.pdb
+P:\$Code\C#\Resonite\VDFaceTracking\bin\Release\VDFaceTracking.dll.config
