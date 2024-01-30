@@ -10,8 +10,8 @@ namespace VDFaceTracking
 {
     public class VDProxy : IInputDriver
     {
-        private const string FaceStateMapName = "VirtualDesktop.FaceState";
-        private const string FaceStateEventName = "VirtualDesktop.FaceStateEvent";
+        private const string BodyStateMapName = "VirtualDesktop.BodyState";
+        private const string BodyStateEventName = "VirtualDesktop.BodyStateEvent";
         private MemoryMappedFile _mappedFile;
         private MemoryMappedViewAccessor _mappedView;
         private unsafe FaceState* _faceState;
@@ -23,7 +23,7 @@ namespace VDFaceTracking
 
         private Thread thread;
 
-        private const int NATURAL_EXPRESSIONS_COUNT = 63;
+        private const int NATURAL_EXPRESSIONS_COUNT = FBExpression.Max;
         private const float SRANIPAL_NORMALIZER = 0.75f;
         private float[] expressions = new float[NATURAL_EXPRESSIONS_COUNT + (8 * 2)];
 
@@ -49,7 +49,7 @@ namespace VDFaceTracking
                 if (value.Value)
                     VDFaceTracking.Msg("[VirtualDesktop] Tracking is now active!");
                 else
-                    VDFaceTracking.Msg("[VirtualDesktop] Tracking is not active. Make sure you are connected to your computer, a VR game or SteamVR is launched and face/eye tracking is enabled in the Streaming tab.");
+                    VDFaceTracking.Msg("[VirtualDesktop] Tracking is not active. Make sure you are connected to your computer, a VR game or SteamVR is launched and 'Forward tracking data' is enabled in the Streaming tab.");
             }
         }
 
@@ -136,13 +136,13 @@ namespace VDFaceTracking
             try
             {
                 int size = Marshal.SizeOf<FaceState>();
-                this._mappedFile = MemoryMappedFile.OpenExisting(FaceStateMapName, MemoryMappedFileRights.ReadWrite);
+                this._mappedFile = MemoryMappedFile.OpenExisting(BodyStateMapName, MemoryMappedFileRights.ReadWrite);
                 this._mappedView = this._mappedFile.CreateViewAccessor(0L, (long)size);
 
                 byte* numPtr = null;
                 _mappedView.SafeMemoryMappedViewHandle.AcquirePointer(ref numPtr);
                 this._faceState = (FaceState*) numPtr;
-                this._faceStateEvent = EventWaitHandle.OpenExisting(FaceStateEventName);
+                this._faceStateEvent = EventWaitHandle.OpenExisting(BodyStateEventName);
                 VDFaceTracking.Msg("[VirtualDesktop] Opened MemoryMappedFile. Everything should be working!");
 
                 cancellationTokenSource = new CancellationTokenSource();
@@ -153,7 +153,7 @@ namespace VDFaceTracking
             }
             catch
             {
-                VDFaceTracking.Error("[VirtualDesktop] Failed to open MemoryMappedFile. Make sure the Virtual Desktop Streamer (v1.29 or later) is running.");
+                VDFaceTracking.Error("[VirtualDesktop] Failed to open MemoryMappedFile. Make sure the Virtual Desktop Streamer (v1.30 or later) is running.");
                 return false;
             }
         }
@@ -554,6 +554,14 @@ namespace VDFaceTracking
 
             _mouth.CheekLeftPuffSuck -= expressions[FBExpression.Cheek_Suck_L];
             _mouth.CheekRightPuffSuck -= expressions[FBExpression.Cheek_Suck_R];
+
+            _mouth.Tongue = new float3(
+                0, // horizontal
+                0, // vertical
+                expressions[FBExpression.TongueOut] // forward
+            );
+
+            // _mouth.TongueRoll = expressions[FBExpression.TongueTipAlveolar];
         }
     }
 

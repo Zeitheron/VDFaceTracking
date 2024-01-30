@@ -65,24 +65,31 @@
         public const int Upper_Lid_Raiser_R = 60;
         public const int Upper_Lip_Raiser_L = 61;
         public const int Upper_Lip_Raiser_R = 62;
-        public const int Max = 63;
-        
+        public const int TongueTipInterdental = 63;
+        public const int TongueTipAlveolar = 64;
+        public const int TongueFrontDorsalPalate = 65;
+        public const int TongueMidDorsalPalate = 66;
+        public const int TongueBackDorsalVelar = 67;
+        public const int TongueOut = 68;
+        public const int TongueRetreat = 69;
+        public const int Max = 70;
+
         // Above are the natural expressions tracked by the Quest Pro
         // Below is the eye tracking information
-        public const int LeftRot_x = 64;
-        public const int LeftRot_y = 65;
-        public const int LeftRot_z = 66;
-        public const int LeftRot_w = 67;
-        public const int LeftPos_x = 68;
-        public const int LeftPos_y = 70; // Flipped, need to convert RHS to LHS
-        public const int LeftPos_z = 69;
+        public const int LeftRot_x = 71;
+        public const int LeftRot_y = 72;
+        public const int LeftRot_z = 73;
+        public const int LeftRot_w = 74;
+        public const int LeftPos_x = 75;
+        public const int LeftPos_y = 76; // Flipped, need to convert RHS to LHS
+        public const int LeftPos_z = 77;
         // public const int 71 is unused
-        public const int RightRot_x = 72;
-        public const int RightRot_y = 73;
-        public const int RightRot_z = 74;
-        public const int RightRot_w = 75;
-        public const int RightPos_x = 76;
-        public const int RightPos_y = 78; // Flipped, need to convert RHS to LHS
-        public const int RightPos_z = 77;
+        public const int RightRot_x = 78;
+        public const int RightRot_y = 79;
+        public const int RightRot_z = 80;
+        public const int RightRot_w = 81;
+        public const int RightPos_x = 82;
+        public const int RightPos_y = 83; // Flipped, need to convert RHS to LHS
+        public const int RightPos_z = 84;
     }
 }

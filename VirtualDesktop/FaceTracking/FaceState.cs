@@ -4,23 +4,25 @@ namespace VirtualDesktop.FaceTracking
 {
     public struct FaceState
     {
-        public const int ExpressionCount = 63;
+        #region Constants
+        public const int ExpressionCount = 70;
         public const int ConfidenceCount = 2;
-        public static readonly FaceState Identity = new FaceState()
-        {
-            LeftEyePose = Pose.Identity,
-            RightEyePose = Pose.Identity
-        };
+        #endregion
 
+        #region Static Fields
+        public static readonly FaceState Identity = new FaceState { LeftEyePose = Pose.Identity, RightEyePose = Pose.Identity };
+        #endregion
+
+        #region Fields
         [MarshalAs(UnmanagedType.I1)]
         public bool FaceIsValid;
 
         [MarshalAs(UnmanagedType.I1)]
         public bool IsEyeFollowingBlendshapesValid;
 
-        public unsafe fixed float ExpressionWeights[63];
+        public unsafe fixed float ExpressionWeights[ExpressionCount];
 
-        public unsafe fixed float ExpressionConfidences[2];
+        public unsafe fixed float ExpressionConfidences[ConfidenceCount];
 
         [MarshalAs(UnmanagedType.I1)]
         public bool LeftEyeIsValid;
@@ -33,5 +35,6 @@ namespace VirtualDesktop.FaceTracking
 
         public float LeftEyeConfidence;
         public float RightEyeConfidence;
+        #endregion
     }
 }

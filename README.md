@@ -1,6 +1,6 @@
 # VDFaceTracking
 
-This is a Resonite mod, which lets the game read facial expressions and eye gaze directly from VirtualDesktop (v1.29 or newer).
+This is a Resonite mod, which lets the game read facial expressions and eye gaze directly from VirtualDesktop (v1.30 or newer).
 
 This was patched together from [dfgHiatus' QuestPro4Neos mod](https://github.com/dfgHiatus/QuestPro4Neos) and [VirtualDesktop](https://www.vrdesktop.net/) VRCFT module.
 
