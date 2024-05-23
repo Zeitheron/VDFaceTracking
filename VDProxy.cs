@@ -426,8 +426,25 @@ namespace VDFaceTracking
         public void RegisterInputs(InputInterface inputInterface)
         {
             _input = inputInterface;
-            _eyes = new Eyes(_input, "Quest Pro Eye Tracking");
-            _mouth = new Mouth(_input, "Quest Pro Face Tracking");
+            _eyes = new Eyes(_input, "Quest Pro Eye Tracking", false);
+            _mouth = new Mouth(_input, "Quest Pro Face Tracking", new MouthParameterGroup[] {
+                MouthParameterGroup.JawOpen,
+                MouthParameterGroup.JawPose,
+                MouthParameterGroup.TonguePose,
+                MouthParameterGroup.LipRaise,
+                MouthParameterGroup.LipHorizontal,
+                MouthParameterGroup.SmileFrown,
+                MouthParameterGroup.MouthDimple,
+                MouthParameterGroup.MouthPout,
+                MouthParameterGroup.LipOverturn,
+                MouthParameterGroup.LipOverUnder,
+                MouthParameterGroup.LipStretchTighten,
+                MouthParameterGroup.LipsPress,
+                MouthParameterGroup.CheekPuffSuck,
+                MouthParameterGroup.CheekRaise,
+                MouthParameterGroup.ChinRaise,
+                MouthParameterGroup.NoseWrinkle
+            });
         }
 
         public void UpdateInputs(float deltaTime)
@@ -469,6 +486,9 @@ namespace VDFaceTracking
             _eyes.LeftEye.PupilDiameter = 0.004f;
             _eyes.LeftEye.Squeeze = leftEyeData.squeeze;
             _eyes.LeftEye.Frown = expressions[FBExpression.Lip_Corner_Puller_L] - expressions[FBExpression.Lip_Corner_Depressor_L] * VDFaceTracking.EyeExpressionMult;
+            _eyes.LeftEye.InnerBrowVertical = expressions[FBExpression.Inner_Brow_Raiser_L];
+            _eyes.LeftEye.OuterBrowVertical = expressions[FBExpression.Outer_Brow_Raiser_L];
+            _eyes.LeftEye.Squeeze = expressions[FBExpression.Brow_Lowerer_L];
 
             UpdateEye(_eyes.LeftEye, leftEyeData);
 
@@ -477,6 +497,9 @@ namespace VDFaceTracking
             _eyes.RightEye.PupilDiameter = 0.004f;
             _eyes.RightEye.Squeeze = rightEyeData.squeeze;
             _eyes.RightEye.Frown = expressions[FBExpression.Lip_Corner_Puller_R] - expressions[FBExpression.Lip_Corner_Depressor_R] * VDFaceTracking.EyeExpressionMult;
+            _eyes.RightEye.InnerBrowVertical = expressions[FBExpression.Inner_Brow_Raiser_R];
+            _eyes.RightEye.OuterBrowVertical = expressions[FBExpression.Outer_Brow_Raiser_R];
+            _eyes.RightEye.Squeeze = expressions[FBExpression.Brow_Lowerer_R];
 
             UpdateEye(_eyes.RightEye, rightEyeData);
 
@@ -535,26 +558,51 @@ namespace VDFaceTracking
             _mouth.LipLowerLeftRaise = expressions[FBExpression.Lower_Lip_Depressor_L];
             _mouth.LipLowerRightRaise = expressions[FBExpression.Lower_Lip_Depressor_R];
 
+            _mouth.LipsLeftPress = expressions[FBExpression.Lip_Pressor_L];
+            _mouth.LipsRightPress = expressions[FBExpression.Lip_Pressor_R];
+
+            _mouth.MouthPoutLeft = expressions[FBExpression.Lip_Pucker_L];
+            _mouth.MouthPoutRight = expressions[FBExpression.Lip_Pucker_R];
+
+            _mouth.NoseWrinkleLeft = expressions[FBExpression.Nose_Wrinkler_L];
+            _mouth.NoseWrinkleRight = expressions[FBExpression.Nose_Wrinkler_R];
+
+            _mouth.MouthLeftDimple = expressions[FBExpression.Dimpler_L];
+            _mouth.MouthRightDimple = expressions[FBExpression.Dimpler_R];
+
+            _mouth.LipTopLeftOverturn = expressions[FBExpression.Lip_Funneler_LT];
+            _mouth.LipTopRightOverturn = expressions[FBExpression.Lip_Funneler_RT];
+
+            _mouth.LipBottomLeftOverturn = expressions[FBExpression.Lip_Funneler_LB];
+            _mouth.LipBottomRightOverturn = expressions[FBExpression.Lip_Funneler_RB];
+
+            _mouth.CheekLeftRaise = expressions[FBExpression.Cheek_Raiser_L];
+            _mouth.CheekRightRaise = expressions[FBExpression.Cheek_Raiser_R];
+
+            _mouth.ChinRaiseTop = expressions[FBExpression.Chin_Raiser_B];
+            _mouth.ChinRaiseTop = expressions[FBExpression.Chin_Raiser_T];
+
+            // [-1; 1] parameters:
             _mouth.LipUpperHorizontal = expressions[FBExpression.Mouth_Right] - expressions[FBExpression.Mouth_Left];
             _mouth.LipLowerHorizontal = expressions[FBExpression.Mouth_Right] - expressions[FBExpression.Mouth_Left];
+
+            _mouth.LipLeftStretchTighten = expressions[FBExpression.Lip_Stretcher_L] - expressions[FBExpression.Lid_Tightener_L];
+            _mouth.LipRightStretchTighten = expressions[FBExpression.Lip_Stretcher_R] - expressions[FBExpression.Lid_Tightener_R];
+
+            _mouth.CheekLeftPuffSuck = expressions[FBExpression.Cheek_Puff_L] - expressions[FBExpression.Cheek_Suck_L];
+            _mouth.CheekRightPuffSuck = expressions[FBExpression.Cheek_Puff_R] - expressions[FBExpression.Cheek_Suck_R];
 
             _mouth.MouthLeftSmileFrown = expressions[FBExpression.Lip_Corner_Puller_L] - expressions[FBExpression.Lip_Corner_Depressor_L];
             _mouth.MouthRightSmileFrown = expressions[FBExpression.Lip_Corner_Puller_R] - expressions[FBExpression.Lip_Corner_Depressor_R];
 
-            _mouth.MouthPout = expressions[FBExpression.Lip_Pucker_L] + expressions[FBExpression.Lip_Pucker_R];
+            // Probably TODO:
+            _mouth.LipTopLeftOverUnder = -expressions[FBExpression.Lip_Suck_LT];
+            _mouth.LipTopRightOverUnder = -expressions[FBExpression.Lip_Suck_RT];
 
-            _mouth.LipTopOverturn = expressions[FBExpression.Lip_Funneler_RT] + expressions[FBExpression.Lip_Funneler_LT];
-            _mouth.LipBottomOverturn = expressions[FBExpression.Lip_Funneler_RB] + expressions[FBExpression.Lip_Funneler_LB];
+            _mouth.LipBottomLeftOverUnder = expressions[FBExpression.Lip_Suck_LB];
+            _mouth.LipBottomRightOverUnder = expressions[FBExpression.Lip_Suck_RB];
 
-            _mouth.LipTopOverUnder = -(expressions[FBExpression.Lip_Suck_RT] + expressions[FBExpression.Lip_Suck_LT]);
-            _mouth.LipBottomOverUnder = expressions[FBExpression.Chin_Raiser_B] - (expressions[FBExpression.Lip_Suck_RB] + expressions[FBExpression.Lip_Suck_LB]);
-
-            _mouth.CheekLeftPuffSuck = expressions[FBExpression.Cheek_Puff_L];
-            _mouth.CheekRightPuffSuck = expressions[FBExpression.Cheek_Puff_R];
-
-            _mouth.CheekLeftPuffSuck -= expressions[FBExpression.Cheek_Suck_L];
-            _mouth.CheekRightPuffSuck -= expressions[FBExpression.Cheek_Suck_R];
-
+            // Tongue
             _mouth.Tongue = new float3(
                 0, // horizontal
                 0, // vertical
