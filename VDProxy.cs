@@ -541,18 +541,18 @@ namespace VDFaceTracking
             _mouth.IsDeviceActive = Engine.Current.InputInterface.VR_Active;
             _mouth.IsTracking = Engine.Current.InputInterface.VR_Active;
 
-            _mouth.JawOpen = expressions[FBExpression.Jaw_Drop];
+            _mouth.JawOpen = expressions[FBExpression.Jaw_Drop] - expressions[FBExpression.Lips_Toward];
 
             var jawHorizontal = expressions[FBExpression.Jaw_Sideways_Right] - expressions[FBExpression.Jaw_Sideways_Left];
             var jawForward = expressions[FBExpression.Jaw_Thrust];
-            var jawDown = expressions[FBExpression.Lips_Toward] + expressions[FBExpression.Jaw_Drop];
+            var jawDown = expressions[FBExpression.Jaw_Drop];
 
             _mouth.Jaw = new float3(
                 jawHorizontal,
                 jawForward,
                 jawDown
             );
-
+             
             _mouth.LipUpperLeftRaise = expressions[FBExpression.Upper_Lip_Raiser_L];
             _mouth.LipUpperRightRaise = expressions[FBExpression.Upper_Lip_Raiser_R];
             _mouth.LipLowerLeftRaise = expressions[FBExpression.Lower_Lip_Depressor_L];
@@ -570,11 +570,11 @@ namespace VDFaceTracking
             _mouth.MouthLeftDimple = expressions[FBExpression.Dimpler_L];
             _mouth.MouthRightDimple = expressions[FBExpression.Dimpler_R];
 
-            _mouth.LipTopLeftOverturn = expressions[FBExpression.Lip_Funneler_LT];
-            _mouth.LipTopRightOverturn = expressions[FBExpression.Lip_Funneler_RT];
+            _mouth.LipTopLeftOverturn = (expressions[FBExpression.Lip_Funneler_LT] + expressions[FBExpression.Lips_Toward]) / 2;
+            _mouth.LipTopRightOverturn = (expressions[FBExpression.Lip_Funneler_RT] + expressions[FBExpression.Lips_Toward]) / 2;
 
-            _mouth.LipBottomLeftOverturn = expressions[FBExpression.Lip_Funneler_LB];
-            _mouth.LipBottomRightOverturn = expressions[FBExpression.Lip_Funneler_RB];
+            _mouth.LipBottomLeftOverturn = (expressions[FBExpression.Lip_Funneler_LB] + expressions[FBExpression.Lips_Toward]) / 2;
+            _mouth.LipBottomRightOverturn = (expressions[FBExpression.Lip_Funneler_RB] + expressions[FBExpression.Lips_Toward]) / 2;
 
             _mouth.CheekLeftRaise = expressions[FBExpression.Cheek_Raiser_L];
             _mouth.CheekRightRaise = expressions[FBExpression.Cheek_Raiser_R];
@@ -592,8 +592,8 @@ namespace VDFaceTracking
             _mouth.CheekLeftPuffSuck = expressions[FBExpression.Cheek_Puff_L] - expressions[FBExpression.Cheek_Suck_L];
             _mouth.CheekRightPuffSuck = expressions[FBExpression.Cheek_Puff_R] - expressions[FBExpression.Cheek_Suck_R];
 
-            _mouth.MouthLeftSmileFrown = expressions[FBExpression.Lip_Corner_Puller_L] - expressions[FBExpression.Lip_Corner_Depressor_L];
-            _mouth.MouthRightSmileFrown = expressions[FBExpression.Lip_Corner_Puller_R] - expressions[FBExpression.Lip_Corner_Depressor_R];
+            _mouth.MouthLeftSmileFrown = Math.Min(1, expressions[FBExpression.Lip_Corner_Puller_L] * 1.2f) - Math.Min(1, (expressions[FBExpression.Lip_Corner_Depressor_L] + expressions[FBExpression.Lip_Stretcher_L]) * SRANIPAL_NORMALIZER);
+            _mouth.MouthRightSmileFrown = Math.Min(1, expressions[FBExpression.Lip_Corner_Puller_R] * 1.2f) - Math.Min(1, (expressions[FBExpression.Lip_Corner_Depressor_R] + expressions[FBExpression.Lip_Stretcher_R]) * SRANIPAL_NORMALIZER);
 
             // Probably TODO:
             _mouth.LipTopLeftOverUnder = -expressions[FBExpression.Lip_Suck_LT];
