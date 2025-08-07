@@ -32,12 +32,12 @@ namespace VDFaceTracking
 
         private static ModConfiguration _config;
 
-		internal const string VERSION_CONSTANT = "1.1.2";
-		public override string Name => "VDFaceTracking";
+        internal const string VERSION_CONSTANT = "1.1.2";
+        public override string Name => "VDFaceTracking";
         public override string Author => "Zeith & dfgHiatus & Geenz & Earthmark & Delta";
-		public override string Version => VERSION_CONSTANT;
+        public override string Version => VERSION_CONSTANT;
 
-		public static VDProxy proxy;
+        public static VDProxy proxy;
 
         public static float EyeOpenExponent = 1.0f;
         public static float EyeWideMult = 1.0f;
