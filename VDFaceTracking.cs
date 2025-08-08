@@ -1,7 +1,5 @@
 ﻿using FrooxEngine;
 using ResoniteModLoader;
-using System;
-using System.Threading;
 
 namespace VDFaceTracking
 {
