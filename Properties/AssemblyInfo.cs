@@ -1,13 +1,9 @@
 ﻿using System.Reflection;
-using System.Runtime.InteropServices;
+
 [assembly: AssemblyTitle("VDFaceTracking")]
-[assembly: AssemblyDescription("Virtual Desktop face tracking mod for Resonite.")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("VDFaceTracking")]
-[assembly: AssemblyCopyright("Copyright ©  2024")]
-[assembly: AssemblyTrademark("")]
-[assembly: ComVisible(false)]
-[assembly: Guid("39d944a3-538c-4a2d-8e53-8db606c64233")]
-[assembly: AssemblyFileVersion("1.1.0")]
-[assembly: AssemblyVersion("1.1.1")]
+[assembly: AssemblyDescription("Virtual Desktop face tracking mod for Resonite.")]
+[assembly: AssemblyCompany("Zeith & dfgHiatus & Geenz & Earthmark & Delta")]
+[assembly: AssemblyCopyright("Copyright © 2025")]
+[assembly: AssemblyVersion(VDFaceTracking.VDFaceTracking.VERSION_CONSTANT)]
+[assembly: AssemblyFileVersion(VDFaceTracking.VDFaceTracking.VERSION_CONSTANT)]

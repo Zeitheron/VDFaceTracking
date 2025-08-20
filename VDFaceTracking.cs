@@ -30,14 +30,12 @@ namespace VDFaceTracking
           new("quest_pro_eye_expression_multiplier",
             "Multiplier to adjust the range of the user's eye expressions.  Can be updated at runtime.", () => 1.0f);
 
-        
         private static ModConfiguration _config;
 
+        internal const string VERSION_CONSTANT = "1.1.2";
         public override string Name => "VDFaceTracking";
-
-        public override string Author => "Zeith & dfgHiatus & Geenz & Earthmark";
-
-        public override string Version => "1.1.1";
+        public override string Author => "Zeith & dfgHiatus & Geenz & Earthmark & Delta";
+        public override string Version => VERSION_CONSTANT;
 
         public static VDProxy proxy;
 
