@@ -3,7 +3,7 @@
         <RootNamespace>VDFaceTracking</RootNamespace>
         <AssemblyName>VDFaceTracking</AssemblyName>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-        <TargetFramework>net472</TargetFramework>
+        <TargetFramework>net900</TargetFramework>
         <FileAlignment>512</FileAlignment>
         <LangVersion>latest</LangVersion>
         <Nullable>enable</Nullable>

@@ -47,9 +47,9 @@ namespace VDFaceTracking
                     return;
                 this._isTracking = value;
                 if (value.Value)
-                    VDFaceTracking.Msg("[VirtualDesktop] Tracking is now active!");
+                    VDFaceTracking.Msg("Tracking is now active!");
                 else
-                    VDFaceTracking.Msg("[VirtualDesktop] Tracking is not active. Make sure you are connected to your computer, a VR game or SteamVR is launched and 'Forward tracking data' is enabled in the Streaming tab.");
+                    VDFaceTracking.Msg("Tracking is not active. Make sure you are connected to your computer, a VR game or SteamVR is launched and 'Forward tracking data' is enabled in the Streaming tab.");
             }
         }
 
@@ -143,7 +143,7 @@ namespace VDFaceTracking
                 _mappedView.SafeMemoryMappedViewHandle.AcquirePointer(ref numPtr);
                 this._faceState = (FaceState*) numPtr;
                 this._faceStateEvent = EventWaitHandle.OpenExisting(BodyStateEventName);
-                VDFaceTracking.Msg("[VirtualDesktop] Opened MemoryMappedFile. Everything should be working!");
+                VDFaceTracking.Msg("Opened MemoryMappedFile. Everything should be working!");
 
                 cancellationTokenSource = new CancellationTokenSource();
                 thread = new Thread(UpdateThread);
@@ -153,7 +153,7 @@ namespace VDFaceTracking
             }
             catch
             {
-                VDFaceTracking.Error("[VirtualDesktop] Failed to open MemoryMappedFile. Make sure the Virtual Desktop Streamer (v1.30 or later) is running.");
+                VDFaceTracking.Error("Failed to open MemoryMappedFile. Make sure the Virtual Desktop Streamer (v1.30 or later) is running.");
                 return false;
             }
         }
