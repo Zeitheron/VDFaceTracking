@@ -133,6 +133,13 @@ namespace VDFaceTracking
 
         internal unsafe bool Initialize()
         {
+            // MemoryMappedFile is supported only on Windows, therefore we should handle it gracefully.
+            if (!OperatingSystem.IsWindows())
+            {
+                VDFaceTracking.Warn("This mod can not run on non-windows OS. Virtual Desktop proxy initialization is going to be skipped.");
+                return false;
+            }
+
             try
             {
                 int size = Marshal.SizeOf<FaceState>();
@@ -301,7 +308,7 @@ namespace VDFaceTracking
             cancellationTokenSource.Cancel();
 
             if (thread != null)
-                thread.Abort();
+                thread.Interrupt();
 
             cancellationTokenSource.Dispose();
 

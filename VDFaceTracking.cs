@@ -1,5 +1,6 @@
 ﻿using FrooxEngine;
 using ResoniteModLoader;
+using System;
 
 namespace VDFaceTracking
 {
@@ -29,7 +30,7 @@ namespace VDFaceTracking
 
         private static ModConfiguration _config;
 
-        internal const string VERSION_CONSTANT = "1.1.2";
+        internal const string VERSION_CONSTANT = "1.1.3";
         public override string Name => "VDFaceTracking";
         public override string Author => "Zeith & dfgHiatus & Geenz & Earthmark & Delta";
         public override string Version => VERSION_CONSTANT;
