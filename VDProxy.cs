@@ -301,7 +301,7 @@ namespace VDFaceTracking
             cancellationTokenSource.Cancel();
 
             if (thread != null)
-                thread.Abort();
+                thread.Interrupt();
 
             cancellationTokenSource.Dispose();
 
